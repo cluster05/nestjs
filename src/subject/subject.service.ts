@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SubjectDto } from './dto/subject.dto';
-import { Subject } from './subject.type';
+import { SubjectDTO } from './subject.dto';
+import { Subject } from '../types/subject.type';
 
 @Injectable()
 export class SubjectService {
@@ -18,18 +18,24 @@ export class SubjectService {
         return await this.subjectModel.find({ title: searchRegex });
     }
 
-    async create(subjectDto: SubjectDto): Promise<Subject> {
-        const subject = await new this.subjectModel(subjectDto).save();
+    async create(subjectDTO: SubjectDTO): Promise<Subject> {
+        const subject = await new this.subjectModel(subjectDTO).save();
         return subject;
     }
 
-    async patch(id: string, subjectDto: SubjectDto): Promise<Subject> {
-        const subject = await this.subjectModel.findByIdAndUpdate(id, subjectDto, { new: true });
+    async patch(id: string, subjectDTO: SubjectDTO): Promise<Subject> {
+        const subject = await this.subjectModel.findByIdAndUpdate(id, subjectDTO, { new: true });
+        if (!subject) {
+            throw new HttpException(`Subject Not Found`, HttpStatus.NOT_FOUND);
+        }
         return subject;
     }
 
     async delete(id: string): Promise<void> {
-        await this.subjectModel.findByIdAndDelete(id);
+        const subject = await this.subjectModel.findByIdAndDelete(id);
+        if (!subject) {
+            throw new HttpException(`Subject Not Found`, HttpStatus.NOT_FOUND);
+        }
     }
 
 }
