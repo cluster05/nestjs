@@ -3,7 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SubjectModule } from './subject/subject.module';
-import { SharedModule } from './shared/shared.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 @Module({
@@ -11,7 +10,6 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI, { useFindAndModify: false }),
     SubjectModule,
-    SharedModule,
     AuthModule,
   ],
   controllers: [AppController],

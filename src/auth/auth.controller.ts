@@ -1,34 +1,30 @@
-import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
-import { UserService } from 'src/shared/user.service';
-import { Payload } from 'src/types/payload.types';
+import { Body, Controller, Get, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/types/auth.types';
 import { UserDTO } from './auth.dto';
 import { AuthService } from './auth.service';
+import { GetUser } from './get-user.decotator';
 
 @Controller('auth')
-@UsePipes(ValidationPipe)
 export class AuthController {
     constructor(
-        private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
     ) { }
 
+    @Get('test')
+    @UseGuards(AuthGuard())
+    test(@GetUser() user: User) {
+        return { user };
+    }
+
     @Post('register')
-    async register(@Body() userDTO: UserDTO) {
-        const user = await this.userService.register(userDTO);
-        const payload: Payload = {
-            email: user.email,
-        };
-        const accessToken = await this.authService.signPayload(payload);
-        return { accessToken };
+    async register(@Body(ValidationPipe) userDTO: UserDTO): Promise<{ accessToken: string }> {
+        return await this.authService.register(userDTO);
     }
 
     @Post('login')
-    async login(@Body() userDTO: UserDTO) {
-        const user = await this.userService.login(userDTO);
-        const payload: Payload = {
-            email: user.email,
-        };
-        const accessToken = await this.authService.signPayload(payload);
-        return { accessToken };
+    async login(@Body(ValidationPipe) userDTO: UserDTO): Promise<{ accessToken: string }> {
+        return await this.authService.login(userDTO);
+
     }
 }
