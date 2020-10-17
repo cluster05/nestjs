@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { UserRole } from 'src/auth/auth.types';
+import { UserRole } from 'src/auth/types/auth.types';
 
 const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 

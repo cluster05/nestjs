@@ -4,4 +4,6 @@ export class SubjectDTO {
 
     @IsNotEmpty()
     title: string;
+
+
 }

@@ -2,10 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { UserDTO } from 'src/auth/auth.dto';
-import { User } from 'src/auth/auth.types';
+import { UserDTO } from 'src/auth/dto/auth.dto';
+import { User } from 'src/auth/types/auth.types';
 import { JwtService } from '@nestjs/jwt';
-import { Payload } from 'src/auth/payload.types';
+import { Payload } from 'src/auth/types/payload.types';
 
 @Injectable()
 export class AuthService {

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/auth/auth.types';
-import { UserDTO } from './auth.dto';
+import { User } from 'src/auth/types/auth.types';
+import { UserDTO } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { GetUser } from './get-user.decotator';
 

@@ -1,10 +1,10 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Payload } from 'src/auth/payload.types';
+import { Payload } from 'src/auth/types/payload.types';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from 'src/auth/auth.types';
+import { User } from 'src/auth/types/auth.types';
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(@InjectModel('User') private userModel: Model<User>) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'SECRET_KEY',
+            secretOrKey: 'process.env.SECRET_KEY',
         });
     }
 

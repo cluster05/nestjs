@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
-import { SubjectDTO } from './subject.dto';
+import { SubjectDTO } from './dto/subject.dto';
 import { SubjectService } from './subject.service';
-import { Subject } from './subject.type';
+import { Subject } from './types/subject.type';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decotator';
+import { User } from 'src/auth/types/auth.types';
 
 @Controller('subject')
-@UseGuards(AuthGuard())
 export class SubjectController {
 
     constructor(private subjectService: SubjectService) { }
@@ -21,22 +22,30 @@ export class SubjectController {
     }
 
     @Post()
+    @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
-    async create(@Body() subjectDTO: SubjectDTO): Promise<Subject> {
-        return this.subjectService.create(subjectDTO);
+    async create(@Body() subjectDTO: SubjectDTO, @GetUser() user: User): Promise<Subject> {
+        const userId = user._id;
+        return this.subjectService.create(subjectDTO, userId);
     }
 
     @Patch(':id')
+    @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
     async patch(
         @Param('id') id: string,
-        @Body() subjectDto: SubjectDTO): Promise<Subject> {
-        return this.subjectService.patch(id, subjectDto);
+        @Body() subjectDto: SubjectDTO,
+        @GetUser() user: User
+    ): Promise<Subject> {
+        const userId = user._id;
+        return this.subjectService.patch(id, subjectDto, userId);
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: string): Promise<void> {
-        return this.subjectService.delete(id);
+    @UseGuards(AuthGuard())
+    async delete(@Param('id') id: string, @GetUser() user: User): Promise<void> {
+        const userId = user._id;
+        return this.subjectService.delete(id, userId);
     }
 
 }
