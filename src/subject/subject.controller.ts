@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SubjectDTO } from './subject.dto';
 import { SubjectService } from './subject.service';
-import { Subject } from '../types/subject.type';
+import { Subject } from './subject.type';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('subject')

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SubjectDTO } from './subject.dto';
-import { Subject } from '../types/subject.type';
+import { Subject } from './subject.type';
 
 @Injectable()
 export class SubjectService {

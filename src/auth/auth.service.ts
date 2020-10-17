@@ -3,9 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { UserDTO } from 'src/auth/auth.dto';
-import { User } from 'src/types/auth.types';
+import { User } from 'src/auth/auth.types';
 import { JwtService } from '@nestjs/jwt';
-import { Payload } from 'src/types/payload.types';
+import { Payload } from 'src/auth/payload.types';
 
 @Injectable()
 export class AuthService {
