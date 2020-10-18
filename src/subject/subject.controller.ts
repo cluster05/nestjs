@@ -11,9 +11,18 @@ export class SubjectController {
 
     constructor(private subjectService: SubjectService) { }
 
-    @Get()
+    @Get('all')
     async readAll(): Promise<Subject[]> {
         return await this.subjectService.readAll();
+    }
+
+    @Get()
+    @UseGuards(AuthGuard())
+    async readAllOfUser(@GetUser() user: User): Promise<Subject[]> {
+        const userId = user._id;
+        console.log(userId);
+
+        return await this.subjectService.readByUserId(userId);
     }
 
     @Get('search')

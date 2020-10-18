@@ -7,6 +7,7 @@ import { Subject } from './types/subject.type';
 @Injectable()
 export class SubjectService {
 
+
     constructor(@InjectModel('Subject') private subjectModel: Model<Subject>) { }
 
     async readAll(): Promise<Subject[]> {
@@ -16,6 +17,16 @@ export class SubjectService {
             return this.depopulateUserId(subject);
         });
     }
+
+    async readByUserId(userId: string): Promise<Subject[]> {
+        const subjects = await this.subjectModel.find({ userId });
+
+        return subjects.map(subject => {
+            return this.depopulateUserId(subject);
+        });
+    }
+
+
 
     async search(search: string): Promise<Subject[]> {
         const searchRegex = { $regex: '.*' + search + '.*' };
