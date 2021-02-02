@@ -11,7 +11,7 @@ export const UserInfoSchema = new mongoose.Schema({
         type: String,
         enum: [UserRole.STUDENT, UserRole.TEACHER]
     },
-    standatd: Number,
+    standard: Number,
     mobileno: String,
     teachermail: String,
     userId: String

@@ -31,11 +31,13 @@ export class UserService {
 
 
     depoulateTeacherMail(userInfo: any) {
+	if(userInfo){
         const getUserInfo = userInfo.toObject();
         if (getUserInfo.role == 'teacher') {
             delete getUserInfo['teachermail'];
         }
         return getUserInfo;
+	}
     }
 
 }

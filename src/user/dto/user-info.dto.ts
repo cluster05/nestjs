@@ -8,7 +8,7 @@ export class UserInfoDTO {
     role: string;
 
     @IsNotEmpty()
-    standatd: number;
+    standard: number;
 
     @IsNotEmpty()
     mobileno: string;

@@ -4,7 +4,7 @@ import { UserRole } from "../model/user-info.schema";
 
 export class UserInfo extends Document {
     role: UserRole;
-    standatd: string;
+    standard: string;
     mobileno: string;
     teachermail: string;
 }
